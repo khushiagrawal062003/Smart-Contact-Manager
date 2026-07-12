@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Smart Contact Manager</title>
+</head>
+<body>
+    <section>
+        <!-- Welcome banner -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="glass-card p-4 d-flex align-items-center justify-content-between flex-wrap gap-3" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%);">
+                    <div>
+                        <h2 class="fw-bold mb-1">Welcome back, <span th:text="${loggedUser.name}">User</span>!</h2>
+                        <p class="text-muted mb-0">Here is a quick overview of your contacts directory activity.</p>
+                    </div>
+                    <a th:href="@{/user/add-contact}" class="btn btn-primary-custom rounded-pill">
+                        <i class="bi bi-person-plus-fill me-2"></i>Add New Contact
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Metrics cards -->
+        <div class="row g-4 mb-5">
+            <!-- Total Contacts Card -->
+            <div class="col-md-6 col-lg-4">
+                <div class="glass-card p-4 d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="text-muted fw-semibold small text-uppercase">Total Connections</span>
+                        <h3 class="stat-value mt-2 mb-0 text-indigo" th:text="${totalContacts}">0</h3>
+                    </div>
+                    <div class="stat-icon bg-primary-subtle text-primary">
+                        <i class="bi bi-people-fill fs-3"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Favorite Contacts Card -->
+            <div class="col-md-6 col-lg-4">
+                <div class="glass-card p-4 d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="text-muted fw-semibold small text-uppercase">Starred Contacts</span>
+                        <h3 class="stat-value mt-2 mb-0 text-danger" th:text="${favoriteContacts}">0</h3>
+                    </div>
+                    <div class="stat-icon bg-danger-subtle text-danger">
+                        <i class="bi bi-star-fill fs-3"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Module Overview Card -->
+            <div class="col-md-12 col-lg-4">
+                <div class="glass-card p-4 d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="text-muted fw-semibold small text-uppercase">Import/Export</span>
+                        <div class="mt-3 d-flex gap-2">
+                            <a th:href="@{/user/export-csv}" class="btn btn-sm btn-outline-dark rounded-pill">
+                                <i class="bi bi-download me-1"></i>Export
+                            </a>
+                            <button class="btn btn-sm btn-outline-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#csvImportModal">
+                                <i class="bi bi-upload me-1"></i>Import
+                            </button>
+                        </div>
+                    </div>
+                    <div class="stat-icon bg-info-subtle text-info">
+                        <i class="bi bi-filetype-csv fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Details Grid -->
+        <div class="row g-4">
+            <!-- 1. Recent Contacts Table -->
+            <div class="col-xl-8">
+                <div class="glass-card p-4 h-100">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="fw-bold fs-5 mb-0">Recently Added</h3>
+                        <a th:href="@{/user/show-contacts/0}" class="text-primary text-decoration-none small fw-semibold">View All</a>
+                    </div>
+                    
+                    <div class="table-responsive" th:if="${not #lists.isEmpty(recentContacts)}">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr class="text-muted small text-uppercase">
+                                    <th>Contact</th>
+                                    <th>Phone</th>
+                                    <th>Category</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="c : ${recentContacts}">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img th:src="${c.image == 'contact_default.png' ? 'https://avatar.iran.liara.run/public' : '/img/uploads/contact/' + c.image}" 
+                                                 class="profile-pic-table" alt="Avatar">
+                                            <div>
+                                                <div class="fw-semibold text-dark" th:text="${c.name}">Name</div>
+                                                <div class="small text-muted" th:text="${c.work}">Company</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td th:text="${c.phone}" class="small text-muted">Phone</td>
+                                    <td>
+                                        <span class="badge badge-category" 
+                                              th:classappend="'badge-' + ${#strings.toLowerCase(c.category)}"
+                                              th:text="${c.category}">Personal</span>
+                                    </td>
+                                    <td class="text-end">
+                                        <a th:href="@{'/user/contact/' + ${c.cId}}" class="btn btn-sm btn-light border-0 rounded-circle" title="View details">
+                                            <i class="bi bi-eye text-primary"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center py-5" th:if="${#lists.isEmpty(recentContacts)}">
+                        <div class="text-muted mb-3"><i class="bi bi-people fs-1 text-muted"></i></div>
+                        <p class="text-muted">No contacts saved yet.</p>
+                        <a th:href="@{/user/add-contact}" class="btn btn-sm btn-primary-custom rounded-pill">Add Contact</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Statistics Breakdown (Glass Card) -->
+            <div class="col-xl-4">
+                <div class="glass-card p-4 h-100">
+                    <h3 class="fw-bold fs-5 mb-4">Category Statistics</h3>
+                    
+                    <div class="d-flex flex-column gap-3" th:if="${not #lists.isEmpty(categoryStats)}">
+                        <div th:each="stat : ${categoryStats}">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="fw-semibold small text-capitalize" th:text="${stat[0]}">Personal</span>
+                                <span class="text-muted small fw-bold" th:text="${stat[1]}">0</span>
+                            </div>
+                            <div class="progress rounded-pill" style="height: 8px;">
+                                <div class="progress-bar rounded-pill" 
+                                     role="progressbar" 
+                                     th:style="'width: ' + (${totalContacts > 0} ? (${stat[1]} * 100 / ${totalContacts}) : 0) + '%'"
+                                     th:classappend="${stat[0] == 'Personal' ? 'bg-success' : (stat[0] == 'Work' ? 'bg-primary' : (stat[0] == 'Family' ? 'bg-warning' : (stat[0] == 'Friends' ? 'bg-danger' : 'bg-secondary')))}"
+                                     aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center py-5" th:if="${#lists.isEmpty(categoryStats)}">
+                        <div class="text-muted mb-3"><i class="bi bi-pie-chart fs-1 text-muted"></i></div>
+                        <p class="text-muted">No stats to display. Populate directory first.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CSV Import Modal -->
+        <div class="modal fade" id="csvImportModal" tabindex="-1" aria-labelledby="csvImportModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content glass-card border-0">
+                    <div class="modal-header border-0 pb-0">
+                        <h5 class="modal-title fw-bold" id="csvImportModalLabel">Import Contacts from CSV</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form th:action="@{/user/import-csv}" method="POST" enctype="multipart/form-data" onsubmit="return validateCSVInput('csvFileField')">
+                        <div class="modal-body py-4">
+                            <p class="text-muted small mb-3">Ensure your CSV contains headers: <code>Name,Nickname,Company,Email,Phone,Category,Favorite,Address,Notes</code>.</p>
+                            <div class="mb-3">
+                                <label for="csvFileField" class="form-label form-label-custom">Select CSV File</label>
+                                <input class="form-control form-control-custom" type="file" id="csvFileField" name="csvFile" accept=".csv" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer border-0 pt-0">
+                            <button type="button" class="btn btn-sm btn-light rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-primary-custom rounded-pill px-4">Upload & Import</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</body>
+</html>

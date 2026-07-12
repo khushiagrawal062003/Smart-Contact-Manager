@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Detail - Smart Contact Manager</title>
+</head>
+<body>
+    <section>
+        <div class="row justify-content-center" th:if="${contact}">
+            <div class="col-lg-8 col-xl-7">
+                <div class="glass-card p-5 border-0 text-center">
+                    
+                    <!-- Back Link -->
+                    <div class="text-start mb-4">
+                        <a th:href="@{/user/show-contacts/0}" class="text-decoration-none text-muted small fw-semibold">
+                            <i class="bi bi-arrow-left me-1"></i> Back to Connections
+                        </a>
+                    </div>
+
+                    <!-- Profile Image large -->
+                    <div class="mb-4 position-relative d-inline-block">
+                        <img th:src="${contact.image == 'contact_default.png' ? 'https://avatar.iran.liara.run/public' : '/img/uploads/contact/' + contact.image}" 
+                             class="profile-pic-large" alt="Avatar">
+                        <span class="position-absolute bottom-0 end-0 bg-warning rounded-circle p-2 shadow-sm d-flex align-items-center justify-content-center" 
+                              th:if="${contact.favorite}" style="width: 32px; height: 32px; border: 2px solid white;">
+                            <i class="bi bi-star-fill text-white fs-7"></i>
+                        </span>
+                    </div>
+
+                    <!-- Name and Title -->
+                    <h2 class="fw-bold mb-1" th:text="${contact.name}">Contact Name</h2>
+                    <p class="text-primary fw-medium mb-1" th:if="${contact.secondName != ''}" th:text="'(' + ${contact.secondName} + ')'">Nickname</p>
+                    <p class="text-muted small mb-4" th:text="${contact.work}">Company Details</p>
+
+                    <!-- Contact Details list grid -->
+                    <div class="row text-start g-3 my-4 p-4 rounded-3 bg-light border">
+                        <div class="col-sm-6">
+                            <div class="text-muted small uppercase fw-semibold tracking-wider">Email Address</div>
+                            <div class="fw-medium mt-1">
+                                <a th:href="'mailto:' + ${contact.email}" class="text-decoration-none text-dark" th:text="${contact.email != '' ? contact.email : 'N/A'}">email@domain.com</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-muted small uppercase fw-semibold tracking-wider">Phone Number</div>
+                            <div class="fw-medium mt-1">
+                                <a th:href="'tel:' + ${contact.phone}" class="text-decoration-none text-dark" th:text="${contact.phone}">000-000-0000</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-muted small uppercase fw-semibold tracking-wider">Category</div>
+                            <div class="mt-1">
+                                <span class="badge badge-category" 
+                                      th:classappend="'badge-' + ${#strings.toLowerCase(contact.category)}"
+                                      th:text="${contact.category}">Personal</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-muted small uppercase fw-semibold tracking-wider">Location / Address</div>
+                            <div class="fw-medium mt-1" th:text="${contact.address != '' ? contact.address : 'N/A'}">Address location</div>
+                        </div>
+                    </div>
+
+                    <!-- Notes Section -->
+                    <div class="text-start mb-5" th:if="${contact.description != ''}">
+                        <h5 class="fw-bold"><i class="bi bi-journal-text me-2 text-primary"></i>Bio Notes</h5>
+                        <p class="text-muted bg-white p-3 border rounded-3" style="white-space: pre-wrap;" th:text="${contact.description}">Notes text detail</p>
+                    </div>
+
+                    <!-- Action buttons bottom toolbar -->
+                    <div class="d-flex justify-content-center gap-3">
+                        <a th:href="@{'/user/update-contact/' + ${contact.cId}}" class="btn btn-primary-custom rounded-pill px-4">
+                            <i class="bi bi-pencil-square me-2"></i>Edit Connection
+                        </a>
+                        <button th:onclick="'deleteContactConfirm(' + ${contact.cId} + ', \'' + ${contact.name} + '\')'" class="btn btn-outline-danger rounded-pill px-4">
+                            <i class="bi bi-trash-fill me-2"></i>Delete Connection
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Exception state -->
+        <div class="row justify-content-center py-5" th:unless="${contact}">
+            <div class="col-md-6 text-center">
+                <i class="bi bi-exclamation-triangle fs-1 text-danger"></i>
+                <h3 class="fw-bold mt-3">Contact Not Found</h3>
+                <p class="text-muted">You do not have permission to view this contact or it was deleted.</p>
+                <a th:href="@{/user/show-contacts/0}" class="btn btn-sm btn-outline-primary rounded-pill">Go Back</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
