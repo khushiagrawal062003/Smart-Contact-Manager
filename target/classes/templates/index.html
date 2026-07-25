@@ -22,104 +22,188 @@
         </div>
 
         <!-- Hero Section -->
-        <div class="row align-items-center py-5 hero-section rounded-4 px-4 px-md-5 mb-5">
-            <div class="col-lg-6 mb-4 mb-lg-0">
-                <span class="badge bg-indigo-subtle text-indigo px-3 py-2 rounded-pill fw-semibold mb-3">
+        <div class="row align-items-center py-5 mb-5">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fw-semibold mb-3">
                     <i class="bi bi-rocket-takeoff-fill me-1"></i>Next Gen Contact CRM
                 </span>
                 <h1 class="hero-title mb-4">
-                    Manage your connections <br>
-                    <span class="text-primary text-gradient">smarter, faster.</span>
+                    Manage Your Contacts <br>
+                    <span class="text-primary text-gradient">Smarter & Faster</span>
                 </h1>
                 <p class="hero-subtitle mb-4">
-                    An elegant, production-ready SaaS space designed for modern professionals. Organize, filter, search, and export your contact directories securely with advanced search algorithms.
+                    Store, organize, search and manage all your contacts securely from one place. Built for modern professionals who demand speed, security, and beautiful interfaces.
                 </p>
                 <div class="d-flex flex-wrap gap-3">
-                    <a th:href="@{/register}" class="btn btn-primary-custom px-4 py-3 fs-6 rounded-pill">
+                    <a th:href="@{/register}" class="btn btn-primary-custom px-4 py-3 fs-6">
                         Get Started Free <i class="bi bi-arrow-right-short ms-1 fs-5"></i>
                     </a>
-                    <a href="#features" class="btn btn-outline-dark px-4 py-3 fs-6 rounded-pill">
+                    <a href="#features" class="btn btn-outline-custom px-4 py-3 fs-6">
                         Explore Features
                     </a>
                 </div>
             </div>
             <div class="col-lg-6 text-center">
-                <!-- UI Mockup SVG -->
-                <svg width="100%" height="340" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="img-fluid drop-shadow">
-                    <rect width="600" height="400" rx="20" fill="#1e1e38" />
-                    <!-- Sidebar Mockup -->
-                    <rect x="0" y="0" width="160" height="400" rx="20" fill="#15152a" />
-                    <circle cx="40" cy="40" r="12" fill="#6366f1" />
-                    <rect x="64" y="32" width="60" height="16" rx="4" fill="#312e81" />
-                    <rect x="24" y="90" width="112" height="24" rx="6" fill="#6366f1" />
-                    <rect x="24" y="130" width="112" height="24" rx="6" fill="#1f1f3a" />
-                    <rect x="24" y="170" width="112" height="24" rx="6" fill="#1f1f3a" />
-                    
-                    <!-- Content Card Mockups -->
-                    <rect x="190" y="30" width="380" height="100" rx="12" fill="#252549" />
-                    <circle cx="230" cy="80" r="28" fill="#4f46e5" />
-                    <rect x="274" y="60" width="120" height="16" rx="4" fill="#4338ca" />
-                    <rect x="274" y="84" width="80" height="12" rx="4" fill="#312e81" />
-                    <rect x="480" y="68" width="60" height="24" rx="12" fill="#ec4899" />
-                    
-                    <!-- Chart/Table Mockup -->
-                    <rect x="190" y="160" width="180" height="210" rx="12" fill="#252549" />
-                    <rect x="210" y="190" width="140" height="14" rx="4" fill="#4338ca" />
-                    <rect x="210" y="220" width="140" height="60" rx="6" fill="#1f1f3a" />
-                    <circle cx="280" cy="250" r="20" fill="none" stroke="#6366f1" stroke-width="6" />
-                    
-                    <rect x="390" y="160" width="180" height="210" rx="12" fill="#252549" />
-                    <rect x="410" y="190" width="140" height="14" rx="4" fill="#4338ca" />
-                    <line x1="410" y1="230" x2="550" y2="230" stroke="#312e81" stroke-width="4" />
-                    <line x1="410" y1="260" x2="550" y2="260" stroke="#312e81" stroke-width="4" />
-                    <line x1="410" y1="290" x2="550" y2="290" stroke="#312e81" stroke-width="4" />
-                </svg>
+                <!-- Browser Mockup displaying CRM Dashboard image -->
+                <div class="browser-mockup float-animation">
+                    <div class="browser-content">
+                        <img th:src="@{/img/crm_hero.jpg}" alt="CRM Dashboard Mockup" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats Section -->
+        <div class="row py-5 g-4 mb-5 text-center">
+            <div class="col-md-3 col-6">
+                <div class="glass-card stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Contacts Managed</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="glass-card stat-card">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Secure Login</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="glass-card stat-card">
+                    <div class="stat-number">1 sec</div>
+                    <div class="stat-label">Instant Search</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="glass-card stat-card">
+                    <div class="stat-number">CSV</div>
+                    <div class="stat-label">Import & Export</div>
+                </div>
             </div>
         </div>
 
         <!-- Features Section -->
-        <div id="features" class="row py-5 g-4 text-center">
-            <div class="col-12 mb-3">
+        <div id="features" class="row py-5 g-4 text-center mb-5">
+            <div class="col-12 mb-4">
                 <span class="text-uppercase text-primary fw-bold tracking-wider fs-6">Key Core Modules</span>
                 <h2 class="fw-bold fs-1 mt-2">Why Smart Contact Manager?</h2>
             </div>
             
             <div class="col-md-4">
-                <div class="glass-card p-5 h-100">
-                    <div class="stat-icon bg-primary-subtle text-primary d-inline-block mb-4">
-                        <i class="bi bi-shield-lock-fill fs-2"></i>
+                <div class="glass-card p-4 h-100">
+                    <div class="stat-icon bg-primary-subtle text-primary d-inline-block mb-3 rounded-circle">
+                        <i class="bi bi-shield-lock-fill fs-3 px-1"></i>
                     </div>
-                    <h3 class="h4 fw-bold mb-3">Secure Encrypted Identity</h3>
-                    <p class="text-muted">
-                        All passwords are hashed with standard BCrypt, coupled with modular Spring Security role boundaries to guarantee account integrity.
+                    <h3 class="h5 fw-bold mb-2">Secure Login</h3>
+                    <p class="text-muted small mb-0">
+                        BCrypt Authentication. Built on robust Spring Security rules keeping your records strictly isolated.
                     </p>
                 </div>
             </div>
             
             <div class="col-md-4">
-                <div class="glass-card p-5 h-100">
-                    <div class="stat-icon bg-success-subtle text-success d-inline-block mb-4">
-                        <i class="bi bi-search-heart fs-2"></i>
+                <div class="glass-card p-4 h-100">
+                    <div class="stat-icon bg-success-subtle text-success d-inline-block mb-3 rounded-circle">
+                        <i class="bi bi-search-heart fs-3 px-1"></i>
                     </div>
-                    <h3 class="h4 fw-bold mb-3">Advanced Elastic-like Search</h3>
-                    <p class="text-muted">
-                        Filter contacts instantly by Name, Nickname, Mobile, Email, Company, or Category, with case-insensitive partial-matching.
+                    <h3 class="h5 fw-bold mb-2">Smart Search</h3>
+                    <p class="text-muted small mb-0">
+                        Find contacts instantly. Multi-criteria searching with pagination, categories filtering, and active query states.
                     </p>
                 </div>
             </div>
             
             <div class="col-md-4">
-                <div class="glass-card p-5 h-100">
-                    <div class="stat-icon bg-info-subtle text-info d-inline-block mb-4">
-                        <i class="bi bi-filetype-csv fs-2"></i>
+                <div class="glass-card p-4 h-100">
+                    <div class="stat-icon bg-info-subtle text-info d-inline-block mb-3 rounded-circle">
+                        <i class="bi bi-file-earmark-arrow-up-fill fs-3 px-1"></i>
                     </div>
-                    <h3 class="h4 fw-bold mb-3">Dynamic CSV Operations</h3>
-                    <p class="text-muted">
-                        Export your directory instantly as standard CSV formats, or upload mass datasets to seed your system smoothly in seconds.
+                    <h3 class="h5 fw-bold mb-2">CSV Import</h3>
+                    <p class="text-muted small mb-0">
+                        Bulk Upload. Seed your dashboard with thousands of contacts instantly using our secure custom CSV parser.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="glass-card p-4 h-100">
+                    <div class="stat-icon bg-warning-subtle text-warning d-inline-block mb-3 rounded-circle">
+                        <i class="bi bi-file-earmark-arrow-down-fill fs-3 px-1"></i>
+                    </div>
+                    <h3 class="h5 fw-bold mb-2">CSV Export</h3>
+                    <p class="text-muted small mb-0">
+                        One Click Export. Securely download your connection lists into standard spreadsheets anytime you need.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="glass-card p-4 h-100">
+                    <div class="stat-icon bg-danger-subtle text-danger d-inline-block mb-3 rounded-circle">
+                        <i class="bi bi-people-fill fs-3 px-1"></i>
+                    </div>
+                    <h3 class="h5 fw-bold mb-2">Contact Management</h3>
+                    <p class="text-muted small mb-0">
+                        Add, Edit & Organize. Categorize contacts, tag favorites, set custom profile photos, and edit connection histories easily.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="glass-card p-4 h-100">
+                    <div class="stat-icon bg-secondary-subtle text-secondary d-inline-block mb-3 rounded-circle">
+                        <i class="bi bi-phone-fill fs-3 px-1"></i>
+                    </div>
+                    <h3 class="h5 fw-bold mb-2">Responsive Design</h3>
+                    <p class="text-muted small mb-0">
+                        Works on all devices. Fully responsive grid structures built to render fluidly across mobile, tablet, and desktops.
                     </p>
                 </div>
             </div>
         </div>
+
+        <!-- Dashboard Preview Section -->
+        <div class="row py-5 mb-5 justify-content-center">
+            <div class="col-lg-10 text-center">
+                <span class="text-uppercase text-primary fw-bold tracking-wider fs-6 mb-2 d-block">Dashboard Preview</span>
+                <h2 class="fw-bold fs-2 mb-4">Inside the Workspace</h2>
+                <div class="browser-mockup">
+                    <div class="browser-content">
+                        <img th:src="@{/img/crm_hero.jpg}" alt="Dashboard Workspace Preview" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works Section -->
+        <div class="row py-5 g-4 text-center mb-5">
+            <div class="col-12 mb-4">
+                <span class="text-uppercase text-primary fw-bold tracking-wider fs-6">Workflow</span>
+                <h2 class="fw-bold fs-1 mt-2">How It Works</h2>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="glass-card p-4">
+                    <div class="step-number">1</div>
+                    <h3 class="h5 fw-bold mb-2">Create Account</h3>
+                    <p class="text-muted small mb-0">Sign up in seconds, secure your space, and customize your settings.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-card p-4">
+                    <div class="step-number">2</div>
+                    <h3 class="h5 fw-bold mb-2">Manage Contacts</h3>
+                    <p class="text-muted small mb-0">Import bulk CSV files or add individual cards complete with photos and tags.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-card p-4">
+                    <div class="step-number">3</div>
+                    <h3 class="h5 fw-bold mb-2">Search & Export</h3>
+                    <p class="text-muted small mb-0">Find anyone instantly with smart filters and download spreadsheets in one click.</p>
+                </div>
+            </div>
+        </div>
+        
     </div>
 
     <!-- Bootstrap 5 JavaScript Bundle with Popper -->

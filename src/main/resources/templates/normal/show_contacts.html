@@ -152,26 +152,26 @@
                                 <tr th:each="c : ${contacts}">
                                     <td>
                                         <div class="d-flex align-items-center gap-3">
-                                            <img th:src="${c.image == 'contact_default.png' ? 'https://avatar.iran.liara.run/public' : '/img/uploads/contact/' + c.image}" 
+                                            <img th:src="${c.image == null || c.image == 'contact_default.png' ? 'https://avatar.iran.liara.run/public' : '/img/uploads/contact/' + c.image}" 
                                                  class="profile-pic-table" alt="Avatar">
                                             <div>
                                                 <div class="fw-bold text-dark mb-0">
                                                     <a th:href="@{'/user/contact/' + ${c.cId}}" class="text-decoration-none text-dark hover-primary" th:text="${c.name}">Name</a>
                                                 </div>
-                                                <div class="small text-muted" th:text="${c.secondName != '' ? '(' + c.secondName + ') ' + c.work : c.work}">Company Details</div>
+                                                <div class="small text-muted" th:text="${(c.secondName != null && c.secondName != '') ? '(' + c.secondName + ') ' + (c.work != null ? c.work : '') : (c.work != null ? c.work : '')}">Company Details</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <a th:href="'mailto:' + ${c.email}" class="text-decoration-none text-muted small" th:text="${c.email}">email@domain.com</a>
+                                        <a th:href="'mailto:' + ${c.email != null ? c.email : ''}" class="text-decoration-none text-muted small" th:text="${c.email != null ? c.email : ''}">email@domain.com</a>
                                     </td>
                                     <td>
-                                        <a th:href="'tel:' + ${c.phone}" class="text-decoration-none text-dark fw-medium small" th:text="${c.phone}">000-000-0000</a>
+                                        <a th:href="'tel:' + ${c.phone != null ? c.phone : ''}" class="text-decoration-none text-dark fw-medium small" th:text="${c.phone != null ? c.phone : ''}">000-000-0000</a>
                                     </td>
                                     <td>
                                         <span class="badge badge-category" 
-                                              th:classappend="'badge-' + ${#strings.toLowerCase(c.category)}"
-                                              th:text="${c.category}">Personal</span>
+                                              th:classappend="'badge-' + ${c.category != null ? #strings.toLowerCase(c.category) : 'other'}"
+                                              th:text="${c.category != null ? c.category : 'Other'}">Personal</span>
                                     </td>
                                     <td>
                                         <i class="bi" th:classappend="${c.favorite} ? 'bi-star-fill text-warning' : 'bi-star text-muted'"></i>
@@ -187,7 +187,7 @@
                                                 <i class="bi bi-pencil-square text-success"></i>
                                             </a>
                                             <!-- Delete -->
-                                            <button th:onclick="'deleteContactConfirm(' + ${c.cId} + ', \'' + ${c.name} + '\')'" class="btn btn-sm btn-light rounded-circle border-0" title="Delete">
+                                            <button th:data-id="${c.cId}" th:data-name="${c.name}" onclick="deleteContactConfirm(this)" class="btn btn-sm btn-light rounded-circle border-0" title="Delete">
                                                 <i class="bi bi-trash-fill text-danger"></i>
                                             </button>
                                         </div>

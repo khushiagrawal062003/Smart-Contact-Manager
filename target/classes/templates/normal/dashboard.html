@@ -94,7 +94,7 @@
                                 <tr th:each="c : ${recentContacts}">
                                     <td>
                                         <div class="d-flex align-items-center gap-3">
-                                            <img th:src="${c.image == 'contact_default.png' ? 'https://avatar.iran.liara.run/public' : '/img/uploads/contact/' + c.image}" 
+                                            <img th:src="${c.image == null || c.image == 'contact_default.png' ? 'https://avatar.iran.liara.run/public' : '/img/uploads/contact/' + c.image}" 
                                                  class="profile-pic-table" alt="Avatar">
                                             <div>
                                                 <div class="fw-semibold text-dark" th:text="${c.name}">Name</div>
@@ -105,8 +105,8 @@
                                     <td th:text="${c.phone}" class="small text-muted">Phone</td>
                                     <td>
                                         <span class="badge badge-category" 
-                                              th:classappend="'badge-' + ${#strings.toLowerCase(c.category)}"
-                                              th:text="${c.category}">Personal</span>
+                                              th:classappend="'badge-' + ${c.category != null ? #strings.toLowerCase(c.category) : 'other'}"
+                                              th:text="${c.category != null ? c.category : 'Other'}">Personal</span>
                                     </td>
                                     <td class="text-end">
                                         <a th:href="@{'/user/contact/' + ${c.cId}}" class="btn btn-sm btn-light border-0 rounded-circle" title="View details">

@@ -16,6 +16,12 @@
     
     <!-- Custom Style Sheet -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <!-- Theme Switcher Script to Avoid Flash of Light Theme -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
 </head>
 <body>
 
@@ -23,7 +29,7 @@
     <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light navbar-custom sticky-top">
         <div class="container-fluid px-4">
             <a class="navbar-brand d-flex align-items-center gap-2" th:href="@{/}">
-                <i class="bi bi-person-rolodex fs-3"></i>
+                <i class="bi bi-person-rolodex fs-3 text-primary"></i>
                 <span class="fs-4">SmartContact</span>
             </a>
             
@@ -37,12 +43,19 @@
                         <a class="nav-link fw-semibold" th:href="@{/}">Home</a>
                     </li>
                     
+                    <!-- Dark/Light Mode Theme Switcher Toggle Button -->
+                    <li class="nav-item">
+                        <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle dark/light theme">
+                            <i id="theme-icon" class="bi bi-moon-stars"></i>
+                        </button>
+                    </li>
+                    
                     <!-- If user is logged in -->
                     <li class="nav-item d-flex align-items-center gap-2" th:if="${loggedUser != null}">
-                        <a th:href="@{/user/profile}" class="d-flex align-items-center gap-2 text-decoration-none text-dark">
+                        <a th:href="@{/user/profile}" class="d-flex align-items-center gap-2 text-decoration-none">
                             <img th:src="${loggedUser.imageUrl == 'default.png' ? 'https://avatar.iran.liara.run/public' : '/img/uploads/user/' + loggedUser.imageUrl}" 
                                  class="profile-pic-nav" alt="Profile">
-                            <span class="fw-semibold" th:text="${loggedUser.name}">User Name</span>
+                            <span class="fw-semibold text-color" th:text="${loggedUser.name}">User Name</span>
                         </a>
                     </li>
                     
@@ -59,7 +72,7 @@
                         </a>
                     </li>
                     <li class="nav-item" th:if="${loggedUser == null}">
-                        <a class="btn btn-outline-dark btn-sm rounded-pill px-3" th:href="@{/register}">Register</a>
+                        <a class="btn btn-outline-custom btn-sm rounded-pill px-3" th:href="@{/register}">Register</a>
                     </li>
                 </ul>
             </div>

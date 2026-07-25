@@ -14,6 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
             if (bsAlert) bsAlert.close();
         }, 5000);
     });
+
+    // Initialize Theme Icon state
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    updateThemeIcon(currentTheme);
 });
 
 // 2. Responsive Sidebar Toggler
@@ -39,17 +43,20 @@ const toggleSidebar = () => {
 };
 
 // 3. Delete Contact Confirmation Dialog (Integration with SweetAlert2 & Fallback)
-const deleteContactConfirm = (cId, contactName) => {
+const deleteContactConfirm = (button) => {
+    const cId = button.getAttribute("data-id");
+    const contactName = button.getAttribute("data-name");
     if (typeof Swal !== "undefined") {
         Swal.fire({
             title: `Delete ${contactName}?`,
             text: "You won't be able to revert this contact removal!",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#4f46e5",
+            confirmButtonColor: "#2563eb",
             cancelButtonColor: "#ef4444",
             confirmButtonText: "Yes, delete it!",
-            background: "#ffffff",
+            background: document.documentElement.getAttribute('data-theme') === 'dark' ? '#1e293b' : '#ffffff',
+            color: document.documentElement.getAttribute('data-theme') === 'dark' ? '#f8fafc' : '#0f172a',
             customClass: {
                 popup: "glass-card rounded-3"
             }
@@ -94,7 +101,7 @@ const validateCSVInput = (inputElementId) => {
                 title: "Invalid File Format",
                 text: "Please select a valid CSV (.csv) file.",
                 icon: "error",
-                confirmButtonColor: "#4f46e5"
+                confirmButtonColor: "#2563eb"
             });
         } else {
             alert("Please select a valid CSV (.csv) file.");
@@ -103,4 +110,24 @@ const validateCSVInput = (inputElementId) => {
         return false;
     }
     return true;
+};
+
+// 6. Dark/Light Theme Switcher Logic
+const toggleTheme = () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+};
+
+const updateThemeIcon = (theme) => {
+    const icon = document.getElementById('theme-icon');
+    if (icon) {
+        if (theme === 'dark') {
+            icon.className = 'bi bi-sun-fill text-warning';
+        } else {
+            icon.className = 'bi bi-moon-stars-fill text-primary';
+        }
+    }
 };

@@ -19,7 +19,7 @@
 
                     <!-- Profile Image large -->
                     <div class="mb-4 position-relative d-inline-block">
-                        <img th:src="${contact.image == 'contact_default.png' ? 'https://avatar.iran.liara.run/public' : '/img/uploads/contact/' + contact.image}" 
+                        <img th:src="${contact.image == null || contact.image == 'contact_default.png' ? 'https://avatar.iran.liara.run/public' : '/img/uploads/contact/' + contact.image}" 
                              class="profile-pic-large" alt="Avatar">
                         <span class="position-absolute bottom-0 end-0 bg-warning rounded-circle p-2 shadow-sm d-flex align-items-center justify-content-center" 
                               th:if="${contact.favorite}" style="width: 32px; height: 32px; border: 2px solid white;">
@@ -29,7 +29,7 @@
 
                     <!-- Name and Title -->
                     <h2 class="fw-bold mb-1" th:text="${contact.name}">Contact Name</h2>
-                    <p class="text-primary fw-medium mb-1" th:if="${contact.secondName != ''}" th:text="'(' + ${contact.secondName} + ')'">Nickname</p>
+                    <p class="text-primary fw-medium mb-1" th:if="${contact.secondName != null && contact.secondName != ''}" th:text="'(' + ${contact.secondName} + ')'">Nickname</p>
                     <p class="text-muted small mb-4" th:text="${contact.work}">Company Details</p>
 
                     <!-- Contact Details list grid -->
@@ -50,8 +50,8 @@
                             <div class="text-muted small uppercase fw-semibold tracking-wider">Category</div>
                             <div class="mt-1">
                                 <span class="badge badge-category" 
-                                      th:classappend="'badge-' + ${#strings.toLowerCase(contact.category)}"
-                                      th:text="${contact.category}">Personal</span>
+                                      th:classappend="'badge-' + ${contact.category != null ? #strings.toLowerCase(contact.category) : 'other'}"
+                                      th:text="${contact.category != null ? contact.category : 'Other'}">Personal</span>
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -71,7 +71,7 @@
                         <a th:href="@{'/user/update-contact/' + ${contact.cId}}" class="btn btn-primary-custom rounded-pill px-4">
                             <i class="bi bi-pencil-square me-2"></i>Edit Connection
                         </a>
-                        <button th:onclick="'deleteContactConfirm(' + ${contact.cId} + ', \'' + ${contact.name} + '\')'" class="btn btn-outline-danger rounded-pill px-4">
+                        <button th:data-id="${contact.cId}" th:data-name="${contact.name}" onclick="deleteContactConfirm(this)" class="btn btn-outline-danger rounded-pill px-4">
                             <i class="bi bi-trash-fill me-2"></i>Delete Connection
                         </button>
                     </div>
