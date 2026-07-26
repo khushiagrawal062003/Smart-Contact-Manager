@@ -1,0 +1,35 @@
+# Maven directories
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.next
+pom.xml.versionsBackup
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/
+.m2/
+
+# IDE directories
+.idea/
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+.metadata/
+
+# Logs
+*.log
+
+# Git files
+.git/
+.gitignore
+.github/
+
+# OS specific files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store

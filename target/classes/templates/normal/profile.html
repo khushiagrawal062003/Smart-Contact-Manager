@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile - Smart Contact Manager</title>
+</head>
+<body>
+    <section>
+        <div class="row g-4 justify-content-center">
+            
+            <!-- Left Side Card (View Profile Info) -->
+            <div class="col-lg-4">
+                <div class="glass-card p-4 border-0 text-center h-100">
+                    <h4 class="fw-bold mb-4">My Account Profile</h4>
+                    
+                    <div class="mb-4">
+                        <img th:src="${loggedUser.imageUrl == 'default.png' ? 'https://avatar.iran.liara.run/public' : '/img/uploads/user/' + loggedUser.imageUrl}" 
+                             class="profile-pic-large" alt="Profile Picture">
+                    </div>
+
+                    <h3 class="fw-bold mb-1" th:text="${loggedUser.name}">User Name</h3>
+                    <p class="text-primary small fw-semibold mb-3" th:text="${loggedUser.email}">email@domain.com</p>
+                    <span class="badge bg-secondary-subtle text-secondary px-3 py-1.5 rounded-pill fw-bold" th:text="${loggedUser.role}">ROLE_USER</span>
+
+                    <hr class="text-muted my-4">
+
+                    <div class="text-start">
+                        <span class="text-muted small uppercase fw-bold tracking-wider">About Me</span>
+                        <p class="text-dark small mt-2 bg-light p-3 rounded border" style="white-space: pre-wrap;" th:text="${loggedUser.about != '' ? loggedUser.about : 'No biography notes provided.'}">About text description</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side Card (Edit Profile Info) -->
+            <div class="col-lg-7">
+                <div class="glass-card p-5 border-0 h-100">
+                    <h3 class="fw-bold mb-1">Edit Profile Details</h3>
+                    <p class="text-muted mb-4">Modify your profile settings and upload avatars</p>
+
+                    <form th:action="@{/user/update-profile}" method="POST" enctype="multipart/form-data">
+                        
+                        <!-- Name Field -->
+                        <div class="mb-3">
+                            <label for="name" class="form-label form-label-custom">Full Name</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0"><i class="bi bi-person text-muted"></i></span>
+                                <input type="text" id="name" name="name" 
+                                       class="form-control form-control-custom border-start-0" 
+                                       th:value="${loggedUser.name}" required>
+                            </div>
+                        </div>
+
+                        <!-- Bio / Description Field -->
+                        <div class="mb-3">
+                            <label for="about" class="form-label form-label-custom">Bio Biography</label>
+                            <textarea id="about" name="about" rows="4" 
+                                      class="form-control form-control-custom" 
+                                      th:text="${loggedUser.about}" placeholder="Write something about yourself..."></textarea>
+                        </div>
+
+                        <!-- Profile Avatar File Upload -->
+                        <div class="mb-4">
+                            <label for="profileImage" class="form-label form-label-custom">Upload Profile Avatar (JPG/PNG)</label>
+                            <input class="form-control form-control-custom" type="file" id="profileImage" name="profileImage" accept="image/*">
+                            <div class="form-text small text-muted">Leaving it blank preserves your current avatar.</div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary-custom rounded-pill px-5">
+                                Save Profile Changes <i class="bi bi-check2-circle ms-1"></i>
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</body>
+</html>
